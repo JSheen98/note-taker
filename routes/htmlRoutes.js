@@ -9,8 +9,8 @@ notes.get('/notes', (req, res) => {
 })
 
 // // TODO: GET * (wildcard) request should return the index.html
-wildcard.get('/*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/index.html'))
-})
+// wildcard.get('/*', (req, res) => {
+//     res.sendFile(path.join(__dirname, '../public/index.html'))
+// })
 
 module.exports = { notes, wildcard }
