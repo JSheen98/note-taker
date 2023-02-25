@@ -1,6 +1,47 @@
 [
     {
-        "title":"Test Title",
-        "text":"Test text"
+        "id": "1",
+        "title": "Test Title",
+        "text": "Test text"
+    },
+    {
+        "id": "2",
+        "title": "Test Title 2",
+        "text": "Test text"
+    },
+    {
+        "id": "e0ed582b-5f2d-4895-bdea-eae9e2886641",
+        "title": "this is a title 3",
+        "text": "this is some text 2"
+    },
+    {
+        "id": "de613e4f-fe0b-4e2e-9c6f-f738f9e6b7e9",
+        "title": "this is a title 4",
+        "text": "this is some text 5"
+    },
+    {
+        "id": "94271aba-e7a9-469a-9357-19a5cebbe3ed",
+        "title": "this is a title 6",
+        "text": "this is some text 8"
+    },
+    {
+        "id": "64990986-bc2a-44bc-8105-a3b884655e30",
+        "title": "new 2",
+        "text": "new 4"
+    },
+    {
+        "id": "33c92cf3-a80f-4078-8060-816c2465f5c9",
+        "title": "new 2",
+        "text": "new 4"
+    },
+    {
+        "id": "d5e37328-b986-4562-bb40-21e3ef324068",
+        "title": "new 2",
+        "text": "new 4"
+    },
+    {
+        "id": "24429008-9cb9-413b-a53a-75a64c645f83",
+        "title": "this is the one i want to delete",
+        "text": "this is the note to delete"
     }
 ]
