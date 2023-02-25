@@ -1,12 +1,11 @@
 // Declarations
 const router = require('express').Router()
 
-const { notes, wildcard } = require('./htmlRoutes')
 const apiRouter = require('./apiRoutes')
+const htmlRouter = require('./htmlRoutes')
 
 // Set up routes
-router.use('/', notes)
-router.use('/', wildcard)
+router.use('/', htmlRouter)
 router.use('/', apiRouter)
 
 module.exports = router
