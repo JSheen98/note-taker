@@ -7,6 +7,6 @@ const apiRouter = require('./apiRoutes')
 // Set up routes
 router.use('/', notes)
 router.use('/', wildcard)
-// app.use('/apiRoutes', apiRouter)
+router.use('/', apiRouter)
 
 module.exports = router
