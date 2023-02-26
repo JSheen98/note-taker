@@ -2,6 +2,7 @@ const apiNotes = require('express').Router()
 const db = require('../db/db.json')
 const uuid = require('uuid')
 const fs = require('fs')
+const dbParsed = JSON.parse(fs.readFileSync('./db/db.json'))
 
 // Reads db file
 apiNotes.get('/notes/', (req, res) => {
@@ -12,42 +13,31 @@ apiNotes.get('/notes/', (req, res) => {
 apiNotes.post('/notes/:id', (req, res) => {
     const { title, text } = req.body
 
+    // New note object
     const newNote = {
         id: uuid.v4(),
         title,
         text
     }
 
-    // Reads the file, parses the data, pushes it into the new array, then stringifies the data back
-    fs.readFile('./db/db.json', (err, data) => {
-        if (err) {
-            console.error(err)
-        } else {
-            const parsedData = JSON.parse(data)
-            parsedData.push(newNote)
-            fs.writeFile('./db/db.json', JSON.stringify(parsedData, null, 4), (err) =>
-                err ? console.error(err) : console.info(`\nData written`))
-        }
-    })
+    // Take the parsed array, and push the new note onto it
+    dbParsed.push(newNote)
+
+    // Writes the the file over with the new array (with the new note)
+    fs.writeFile('./db/db.json', JSON.stringify(dbParsed, null, 4), (err) =>
+        err ? console.error(err) : console.info(`\nData Written`))
 })
 
-// BONUS TODO: DELETE /api/notes/:id should receive a query param containing id of note to delete. In order to delete a note, you need to read all notes from db.json, remove note with given id, and rewrite notes to db.json
+// DELETE /api/notes/:id should receive a query param containing id of note to delete. In order to delete a note, you need to read all notes from db.json, remove note with given id, and rewrite notes to db.json
 apiNotes.delete('/notes/:id', (req, res) => {
-    const dbParsed = JSON.parse(fs.readFileSync('./db/db.json')) 
-    const id = req.params.id * 1
-    const noteToDelete = dbParsed.find(el => el.id === id)
-    const index = dbParsed.indexOf(noteToDelete)
+    // Crate id variable to use in noteToDelete variable
+    const id = req.params.id
+    // Filters through the array and removes anything that doesn't equal the id given, puts the result in the noteToDelete array
+    const noteToDelete = dbParsed.filter(note => note.id !== id)
 
-    dbParsed.splice(index, 1)
-
-    fs.writeFile('./db/db.json', JSON.stringify(dbParsed, null, 4), (err) => 
-        res.status(204).json({
-            status: "success",
-            data: {
-                note: null
-            }
-        })
-    )
+    // Writes the file over with the new array (with the removed note object)
+    fs.writeFile('./db/db.json', JSON.stringify(noteToDelete, null, 4), (err) =>
+        err ? console.error(err) : console.info(`\nData Deleted`))
 })
 
 
