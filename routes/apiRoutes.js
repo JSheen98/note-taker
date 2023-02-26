@@ -4,12 +4,12 @@ const uuid = require('uuid')
 const fs = require('fs')
 
 // Reads db file
-apiNotes.get('/api/notes/', (req, res) => {
+apiNotes.get('/notes/', (req, res) => {
     res.json(db)
 })
 
 // Post request for new notes
-apiNotes.post('/api/notes/:id', (req, res) => {
+apiNotes.post('/notes/:id', (req, res) => {
     const { title, text } = req.body
 
     const newNote = {
