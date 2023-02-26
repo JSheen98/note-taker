@@ -5,7 +5,7 @@ const apiRouter = require('./apiRoutes')
 const htmlRouter = require('./htmlRoutes')
 
 // Set up routes
+router.use('/api', apiRouter)
 router.use('/', htmlRouter)
-router.use('/', apiRouter)
 
 module.exports = router
