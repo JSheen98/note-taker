@@ -2,7 +2,6 @@ const apiNotes = require('express').Router()
 const db = require('../db/db.json')
 const uuid = require('uuid')
 const fs = require('fs')
-const dbParsed = JSON.parse(fs.readFileSync('./db/db.json'))
 
 // Reads db file
 apiNotes.get('/notes/', (req, res) => {
@@ -34,7 +33,7 @@ apiNotes.post('/notes/:id', (req, res) => {
 
 // BONUS TODO: DELETE /api/notes/:id should receive a query param containing id of note to delete. In order to delete a note, you need to read all notes from db.json, remove note with given id, and rewrite notes to db.json
 apiNotes.delete('/notes/:id', (req, res) => {
-    // const dbParsed = JSON.parse(fs.readFile('./db/db.json')) 
+    const dbParsed = JSON.parse(fs.readFileSync('./db/db.json')) 
     const id = req.params.id * 1
     const noteToDelete = dbParsed.find(el => el.id === id)
     const index = dbParsed.indexOf(noteToDelete)
