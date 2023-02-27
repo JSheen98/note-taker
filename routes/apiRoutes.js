@@ -4,12 +4,12 @@ const uuid = require('uuid')
 const fs = require('fs')
 const dbParsed = JSON.parse(fs.readFileSync('./db/db.json'))
 
-// Reads db file
+// GET request: Reads db file
 apiNotes.get('/notes/', (req, res) => {
     res.json(db)
 })
 
-// Post request for new notes
+// POST request: Creates new note and adds it to new array, new array is written onto the file
 apiNotes.post('/notes/:id', (req, res) => {
     const { title, text } = req.body
 
@@ -28,7 +28,7 @@ apiNotes.post('/notes/:id', (req, res) => {
         err ? console.error(err) : console.info(`\nData Written`))
 })
 
-// DELETE /api/notes/:id should receive a query param containing id of note to delete. In order to delete a note, you need to read all notes from db.json, remove note with given id, and rewrite notes to db.json
+// DELETE request: Takes a given id, filters the note with that id from the parsed array, then puts the new filtered array over the file
 apiNotes.delete('/notes/:id', (req, res) => {
     // Crate id variable to use in noteToDelete variable
     const id = req.params.id
@@ -39,7 +39,6 @@ apiNotes.delete('/notes/:id', (req, res) => {
     fs.writeFile('./db/db.json', JSON.stringify(noteToDelete, null, 4), (err) =>
         err ? console.error(err) : console.info(`\nData Deleted`))
 })
-
 
 
 module.exports = apiNotes
