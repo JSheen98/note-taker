@@ -1,16 +1,14 @@
-const apiNotes = require('express').Router()
-const db = require('../db/db.json')
+const router = require('express').Router()
 const uuid = require('uuid')
 const fs = require('fs')
-const dbParsed = JSON.parse(fs.readFileSync('./db/db.json'))
 
-// Reads db file
-apiNotes.get('/notes/', (req, res) => {
-    res.json(db)
+// GET request: Reads db.json file
+router.get('/notes', (req, res) => {
+    fs.readFile('db/db.json', 'utf-8', (err, data) => err ? console.error(err) : res.json(JSON.parse(data)))
 })
 
-// Post request for new notes
-apiNotes.post('/notes/:id', (req, res) => {
+// POST request: Creates new note and adds it to new array, new array is written onto the file
+router.post('/notes', (req, res) => {
     const { title, text } = req.body
 
     // New note object
@@ -20,26 +18,28 @@ apiNotes.post('/notes/:id', (req, res) => {
         text
     }
 
-    // Take the parsed array, and push the new note onto it
-    dbParsed.push(newNote)
-
-    // Writes the the file over with the new array (with the new note)
-    fs.writeFile('./db/db.json', JSON.stringify(dbParsed, null, 4), (err) =>
-        err ? console.error(err) : console.info(`\nData Written`))
+    // Reads the file, parses the data (if no error), pushes the new note object to the parsedData array, then writes it to the file. Then redirects user to the same page
+    fs.readFile('db/db.json', 'utf-8', (err, data) => {
+        if (err) throw err
+        const parsedData = JSON.parse(data)
+        parsedData.push(newNote)
+        fs.writeFile('db/db.json', JSON.stringify(parsedData, null, 4), (err) => err ? console.error(err) : res.redirect('/notes'))
+    })
 })
 
-// DELETE /api/notes/:id should receive a query param containing id of note to delete. In order to delete a note, you need to read all notes from db.json, remove note with given id, and rewrite notes to db.json
-apiNotes.delete('/notes/:id', (req, res) => {
-    // Crate id variable to use in noteToDelete variable
-    const id = req.params.id
-    // Filters through the array and removes anything that doesn't equal the id given, puts the result in the noteToDelete array
-    const noteToDelete = dbParsed.filter(note => note.id !== id)
-
-    // Writes the file over with the new array (with the removed note object)
-    fs.writeFile('./db/db.json', JSON.stringify(noteToDelete, null, 4), (err) =>
-        err ? console.error(err) : console.info(`\nData Deleted`))
+// DELETE request: Takes a given id, filters the note with that id from the parsed array, then puts the new filtered array over the file
+router.delete('/notes/:id', (req, res) => {
+    // Reads the file, throws error if needed, otherwise puts parsed data in a variable, filters that variable  
+    // and puts it into a new array (noteToDelete), which is filtered through for the given id then posts the 
+    // new array in the file, and redirects the user back to the same page
+    fs.readFile('db/db.json', 'utf-8', (err, data) => {
+        if (err) throw err
+        const parsedData = JSON.parse(data)
+        const id = req.params.id
+        const noteToDelete = parsedData.filter(note => note.id != id)
+        fs.writeFile('db/db.json', JSON.stringify(noteToDelete, null, 4), (err) => err ? console.error(err) : res.redirect('/notes'))
+    })
 })
 
 
-
-module.exports = apiNotes
+module.exports = router
