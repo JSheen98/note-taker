@@ -1,27 +1,37 @@
 [
     {
-        "id": "1",
-        "title": "Test Title",
-        "text": "Test text"
+        "id": "d78102b8-1703-41ba-a69f-90d8fd004a4b",
+        "title": "Remember Dentist Appointment",
+        "text": "text"
     },
     {
-        "id": "2",
-        "title": "Test Title 2",
-        "text": "Test text"
+        "id": "1eab9265-101f-4865-b780-319ffe9b0bb6",
+        "title": "Coding Bootcamp",
+        "text": "Bootcamp!"
     },
     {
-        "id": "e0ed582b-5f2d-4895-bdea-eae9e2886641",
-        "title": "this is a title 3",
-        "text": "this is some text 2"
+        "id": "a9989a45-6bb9-4511-b88a-04729d4788e0",
+        "title": "Observe YouTube",
+        "text": "Note: make sure to search 'dog with zoomies'"
     },
     {
-        "id": "94271aba-e7a9-469a-9357-19a5cebbe3ed",
-        "title": "this is a title 6",
-        "text": "this is some text 8"
+        "id": "5b0f17a8-19be-4f27-a626-f0cc0ad907fd",
+        "title": "Schedule a haircut",
+        "text": "haircut time!"
     },
     {
-        "id": "517f7df8-821a-4771-9568-4aafd2c377a4",
-        "title": "this is a test2",
-        "text": "this is also a tes2t"
+        "id": "bed96421-fc06-4ebc-84ce-7d52e88a9635",
+        "title": "Study express functionality",
+        "text": "study time!"
+    },
+    {
+        "id": "e007453a-a8cf-48e5-8d9c-0e9c79170a9f",
+        "title": "Study SQL",
+        "text": "SQL!"
+    },
+    {
+        "id": "17328380-b619-4a69-9e15-d04af0c8753d",
+        "title": "Note for Deletion!",
+        "text": "Delete this one!"
     }
 ]
